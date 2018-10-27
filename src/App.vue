@@ -9,4 +9,11 @@
 </template>
 
 <style lang="scss">
+#app {
+    height: 100%;
+}
+body {
+    overflow-y: overlay;
+    height: 100vh;
+}
 </style>
