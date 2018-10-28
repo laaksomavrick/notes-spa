@@ -1,35 +1,32 @@
 <template>
-    <!-- todo extract common css into component -->
-    <b-container class="create-user">
-        <b-row class="create-user-row">
-            <div class="create-user-container">
-                <h1 class="header">Create an account</h1>
-                <b-form @submit="submit">
-                    <b-form-group label="Email">
-                        <b-form-input v-model="email" type="email" required placeholder="Enter email" autocomplete="username">
-                        </b-form-input>
-                    </b-form-group>
-                    <b-form-group label="Password">
-                        <b-form-input v-model="password" type="password" required autocomplete="current-password" placeholder="Enter password">
-                        </b-form-input>
-                    </b-form-group>
-                    <b-form-group label="Confirm password">
-                        <b-form-input v-model="confirmPassword" type="password" required autocomplete="current-password" placeholder="Enter password">
-                        </b-form-input>
-                    </b-form-group>
-                    <b-button type="submit" variant="primary" class="submit" :disabled="!valid">Submit</b-button>
-                </b-form>
-            </div>
-        </b-row>
-    </b-container>
+    <user-container header="Create account">
+        <b-form @submit="submit">
+            <b-form-group label="Email">
+                <b-form-input v-model="email" type="email" required placeholder="Enter email" autocomplete="username">
+                </b-form-input>
+            </b-form-group>
+            <b-form-group label="Password">
+                <b-form-input v-model="password" type="password" required autocomplete="current-password" placeholder="Enter password">
+                </b-form-input>
+            </b-form-group>
+            <b-form-group label="Confirm password">
+                <b-form-input v-model="confirmPassword" type="password" required autocomplete="current-password" placeholder="Enter password">
+                </b-form-input>
+            </b-form-group>
+            <b-button type="submit" variant="primary" class="submit" :disabled="!valid">Submit</b-button>
+        </b-form>
+    </user-container>
 </template>
 
 <script lang="ts">
 import { Action } from 'vuex-class';
 import { Component, Vue } from 'vue-property-decorator';
+import UserContainer from '../components/user-container.component.vue';
 
 @Component({
-    components: {}
+    components: {
+        UserContainer
+    }
 })
 export default class CreateUser extends Vue {
     private email: string;
@@ -52,6 +49,7 @@ export default class CreateUser extends Vue {
         e.preventDefault();
         const payload = { email: this.email, password: this.password };
         await this.createUser(payload);
+        this.$router.push('/');
     }
 
     get valid() {
@@ -63,24 +61,6 @@ export default class CreateUser extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.create-user {
-    height: 100%;
-}
-.create-user-row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-}
-.create-user-container {
-    margin-top: -100px;
-    flex: 1;
-    max-width: 400px;
-}
-.header {
-    margin-bottom: 2rem;
-    text-align: center;
-}
 .submit {
     width: 100%;
 }

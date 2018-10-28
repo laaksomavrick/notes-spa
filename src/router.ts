@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Store from './store';
 import CreateUser from './views/CreateUser.vue';
 import Home from './views/Home.vue';
 import Login from './views/Login.vue';
+import store from './store';
 
 Vue.use(Router);
 
@@ -43,12 +45,16 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
     const authRequired = to.matched.some(route => route.meta.auth);
-    // let authed = Store.state.auth.authenticated;
-    // if (!authed) {
-    //     checkAndSetAuthenticated();
-    //     authed = Store.state.auth.authenticated;
-    // }
-    const authed = false;
+    const checkAuth = () => (Store.state.user.user ? Store.state.user.user.token : false);
+    let authed = checkAuth();
+    if (!authed) {
+        const token = localStorage.getItem('accessToken');
+        const email = localStorage.getItem('email');
+        if (token && email) {
+            Store.commit('setUser', { token: { token }, email });
+        }
+        authed = checkAuth();
+    }
     authRequired && !authed ? next('/login') : next();
 });
 
