@@ -17,14 +17,14 @@
 <script lang="ts">
 import { Action } from 'vuex-class';
 import { Component, Vue } from 'vue-property-decorator';
-import UserContainer from '../components/user-container.component.vue';
+import UserContainer from '../components/user/user-container.component.vue';
 
 @Component({
     components: {
         UserContainer
     }
 })
-export default class Login extends Vue {
+export default class LoginUser extends Vue {
     private email: string;
     private password: string;
 

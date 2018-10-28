@@ -1,10 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Store from './store';
-import CreateUser from './views/CreateUser.vue';
-import Home from './views/Home.vue';
-import Login from './views/Login.vue';
-import store from './store';
+import CreateUser from './views/create-user.view.vue';
+import LoginUser from './views/login-user.view.vue';
+import Notes from './views/notes.view.vue';
 
 Vue.use(Router);
 
@@ -14,14 +13,14 @@ const router = new Router({
     routes: [
         {
             path: '/',
-            name: 'home',
+            name: 'notes',
             meta: { auth: true },
-            component: Home
+            component: Notes
         },
         {
             path: '/login',
             name: 'login',
-            component: Login
+            component: LoginUser
         },
         {
             path: '/create',
