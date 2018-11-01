@@ -44,13 +44,12 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
     const authRequired = to.matched.some(route => route.meta.auth);
-    const checkAuth = () => (Store.state.user.user ? Store.state.user.user.token : false);
+    const checkAuth = () => (Store.state.user.auth ? Store.state.user.auth.token : false);
     let authed = checkAuth();
     if (!authed) {
         const token = localStorage.getItem('accessToken');
-        const email = localStorage.getItem('email');
-        if (token && email) {
-            Store.commit('setUser', { token: { token }, email });
+        if (token) {
+            Store.commit('setAuth', { token: { token } });
         }
         authed = checkAuth();
     }
