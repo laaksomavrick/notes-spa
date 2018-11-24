@@ -1,8 +1,13 @@
 <template>
-    <div class="home">
-        You're logged in!
-        <navigation></navigation>
-    </div>
+    <b-container fluid class="home">
+        <b-row class="home__row">
+            <b-col cols="4">
+                <navigation></navigation>
+            </b-col>
+            <b-col>
+            </b-col>
+        </b-row>
+    </b-container>
 </template>
 
 <script lang="ts">
@@ -24,3 +29,14 @@ export default class Notes extends Vue {
     }
 }
 </script>
+
+<style lang="scss">
+.home {
+    padding: 0px;
+    height: 100%;
+
+    &__row {
+        height: 100%;
+    }
+}
+</style>

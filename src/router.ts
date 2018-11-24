@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import FolderNotes from './components/folder-notes.component.vue';
 import Store from './store';
 import CreateUser from './views/create-user.view.vue';
 import LoginUser from './views/login-user.view.vue';
@@ -15,7 +16,14 @@ const router = new Router({
             path: '/',
             name: 'notes',
             meta: { auth: true },
-            component: Notes
+            component: Notes,
+            children: [
+                {
+                    path: '/folder/:folderId/',
+                    component: FolderNotes,
+                    name: 'folderNotes'
+                }
+            ]
         },
         {
             path: '/login',
@@ -42,6 +50,7 @@ const router = new Router({
     ]
 });
 
+// extract to middleware
 router.beforeEach((to, from, next) => {
     const authRequired = to.matched.some(route => route.meta.auth);
     const checkAuth = () => (Store.state.user.auth ? Store.state.user.auth.token : false);
